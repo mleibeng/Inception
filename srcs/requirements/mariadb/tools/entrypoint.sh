@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-timeout 30s bash -c 'until nc -z mariadb 3306; do sleep 1; done'
+until nc -z mariadb 3306; do
+	echo "Waiting for MariaDB to be ready..."
+	sleep 2
+done
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 	cp /wp-config.php /var/www/html/wp-config.php
