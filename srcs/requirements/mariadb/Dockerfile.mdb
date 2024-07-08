@@ -1,0 +1,12 @@
+FROM debian:11
+
+RUN apt-get update && apt-get upgrade && \
+	apt-get install -y mariadb-server && \
+	apt-get clean && rm -fr /var/lib/apt/lists/*
+
+COPY source dest
+COPY source dest
+
+RUN chmod -x /docker-entrypoint-initdb.d/init-db.sh
+
+EXPOSE 3306

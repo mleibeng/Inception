@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    restart: always
+    ports:
+      -"443:443"
+    volumes:
+      -wordpress_files:/var/www/html/
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER:
+  wordpress:
+    build: ./requirements/wordpress/
+    restart: always
+    ports:
+      -
+  db:
+  build: ./mariadb
+  restart: always
+  volumes:
+    - db_data:/var/lib/mysql
+  environment:
+  networks:
+  - app-network
+
+volumes:
+  db_data:
+  wordpress_files:
+  nginx_config:
+
+networks:
+  app-network:
+  driver: bridge
