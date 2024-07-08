@@ -2,34 +2,62 @@ version: '3.8'
 
 services:
   nginx:
-    build: ./requirements/nginx
-    restart: always
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile.nginx
+    restart: unless-stopped
     ports:
-      -"443:443"
+      - "443:443"
     volumes:
-      -wordpress_files:/var/www/html/
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER:
+      - wordpress_files:/var/www/html/
+      - ./requirements/nginx/conf:/etc/nginx/conf.d:ro
+    depends_on:
+      - wordpress
+    env_file:
+      - .env
+    networks:
+      - app-network
+
   wordpress:
-    build: ./requirements/wordpress/
-    restart: always
-    ports:
-      -
-  db:
-  build: ./mariadb
-  restart: always
-  volumes:
-    - db_data:/var/lib/mysql
-  environment:
-  networks:
-  - app-network
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile.wordpress
+    restart: unless-stopped
+    volumes:
+      - wordpress_files:/var/www/html
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile.mdb
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - app-network
 
 volumes:
-  db_data:
   wordpress_files:
-  nginx_config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/wordpress
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/mysql
 
 networks:
   app-network:
-  driver: bridge
+    driver: bridge
