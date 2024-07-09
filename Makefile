@@ -1,4 +1,4 @@
-COMPOSE := docker-compose.yml
+COMPOSE := ./srcs/docker-compose.yml
 
 pull:
 	docker-compose -f $(COMPOSE) pull

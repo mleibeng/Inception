@@ -10,7 +10,7 @@ services:
       - "443:443"
     volumes:
       - wordpress_files:/var/www/html/
-      - ./requirements/nginx/conf:/etc/nginx/conf.d:ro
+      - ./requirements/nginx/conf/nginx.conf
     depends_on:
       - wordpress
     env_file:
