@@ -4,13 +4,13 @@ services:
   nginx:
     build:
       context: ./requirements/nginx
-      dockerfile: Dockerfile.nginx
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "443:443"
     volumes:
       - wordpress_files:/var/www/html/
-      - ./requirements/nginx/conf/nginx.conf
+      - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - wordpress
     env_file:
@@ -21,7 +21,7 @@ services:
   wordpress:
     build:
       context: ./requirements/wordpress/
-      dockerfile: Dockerfile.wordpress
+      dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
       - wordpress_files:/var/www/html
@@ -35,7 +35,7 @@ services:
   mariadb:
     build:
       context: ./requirements/mariadb
-      dockerfile: Dockerfile.mdb
+      dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
       - db_data:/var/lib/mysql
@@ -50,13 +50,27 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/wordpress
+      device: /Users/${USER}/data/wordpress
   db_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/mysql
+      device: /Users/${USER}/data/mysql
+
+#volumes:
+  # wordpress_files:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /Home/${USER}/data/wordpress
+  # db_data:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /Home/${USER}/data/mysql
 
 networks:
   app-network:

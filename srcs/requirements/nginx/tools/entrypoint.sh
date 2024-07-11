@@ -1,15 +1,16 @@
 #!/bin/sh
 set -e
 
-# generate key if non-existent
-if [ ! -f /etc/ssl/certs/nginx-selfsigned.crt ]; then
+if [ ! -f /etc/ssl/certs/nginx.crt ]; then
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-		-keyout /etc/ssl/private/nginx-selfsigned.key \
-		-out /etc/ssl/certs/nginx-selfsigned.crt \
-		-subj "/C=XX/ST=STATE/L=CITY/O=ORGANIZATION/OU=UNIT/CN=${DOMAIN_NAME}"
+	-keyout /etc/ssl/private/nginx.key \
+	-out /etc/ssl/certs/nginx.crt \
+	-subj "/C=DE/ST=HNN/L=HEILBRONN/O=42/OU=42/CN=${DOMAIN_NAME}"
 fi
 
-envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp
-mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
+envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.conf > /tmp/nginx.conf.tmp
 
-exec "$@"
+cp /etc/nginx/fastcgi_params /tmp/fastcgi_params
+cp /etc/nginx/mime.types /tmp/mime.types
+
+nginx -c /tmp/nginx.conf.tmp -g 'daemon off;'
