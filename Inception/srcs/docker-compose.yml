@@ -1,0 +1,137 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/html
+      - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - wordpress
+      # - adminer
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      - mariadb
+      # - redis
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - app-network
+    
+  # redis:
+  #   container_name: redis
+  #   build:
+  #     context: ./requirements/redis
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - app-network
+
+  # ftp:
+  #   container_name: ftp
+  #   build:
+  #     context: ./requirements/ftp
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "20:20"
+  #     - "21:21"
+  #     - "21100-21110:21100-21110"
+  #   volumes:
+  #     - ftp_data:/home/${USER}/ftp
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - app-network
+  # adminer:
+  #   container_name: adminer
+  #   build:
+  #     context: ./requirements/adminer
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - mariadb
+  #   networks:
+  #     - app-network
+
+
+# volumes:
+#   wordpress:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /Users/${USER}/data/wordpress
+#   db_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /Users/${USER}/data/mysql
+
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/wordpress
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/mysql
+  # redis_data:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /home/${USER}/data/redis
+  # ftp_data:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /home/${USER}/data/ftp
+
+
+networks:
+  app-network:
+    driver: bridge
