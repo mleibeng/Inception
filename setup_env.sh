@@ -18,6 +18,7 @@ add_secret_to_env()
 echo "DOMAIN_NAME=mleibeng.42.fr" >> "$ENV_FILE"
 echo "MYSQL_USER=wordpress_user" >> "$ENV_FILE"
 echo "MYSQL_DATABASE=wordpress" >> "$ENV_FILE"
+echo "USER=mleibeng" >> "$ENV_FILE"
 
 add_secret_to_env "MYSQL_PASSWORD" "./secrets/db_password.txt"
 add_secret_to_env "MYSQL_ROOT_PASSWORD" "./secrets/db_root_password.txt"

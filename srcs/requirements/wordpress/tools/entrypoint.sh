@@ -33,11 +33,6 @@ else
 	exit 1
 fi
 
-MYSQL_PASSWORD=$MYSQL_PASSWORD || { echo "Failed to read MYSQL_PASSWORD"; exit 1; }
-WP_ADMIN_USER=$WP_ADMIN_USER || { echo "Failed to read WP_ADMIN_USER"; exit 1; }
-WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD || { echo "Failed to read WP_ADMIN_PASSWORD"; exit 1; }
-WP_ADMIN_EMAIL=$WP_ADMIN_EMAIL || { echo "Failed to read WP_ADMIN_EMAIL"; exit 1; }
-
 sed -i "s/database_name_here/$(escape_sed "$MYSQL_DATABASE")/g" /var/www/html/wp-config.php || { echo "Failed database sed"; exit 1; }
 sed -i "s/username_here/$(escape_sed "$MYSQL_USER")/g" /var/www/html/wp-config.php || { echo "Failed MYSQL_USER sed"; exit 1; }
 sed -i "s/password_here/$(escape_sed "$MYSQL_PASSWORD")/g" /var/www/html/wp-config.php || { echo "Failed MYSQL_PASSWORD sed"; exit 1; }
@@ -54,14 +49,14 @@ do
 	fi
 done
 
+# {
+#     echo "define('WP_REDIS_HOST', 'redis');"
+#     echo "define('WP_REDIS_PORT', 6379);"
+# } >> /var/www/html/wp-config.php
+
 echo "Installing WordPress"
-if wp core install --path=/var/www/html --url="https://${DOMAIN_NAME}" --title="Just another website" \
-	--admin_user="${WP_ADMIN_USER}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="${WP_ADMIN_EMAIL}" --allow-root; then
-	echo "WordPress installed successfully"
-else
-	echo "Error: Failed to install WordPress"
-	exit 1
-fi
+wp core install --path=/var/www/html --url="https://${DOMAIN_NAME}" --title="Just another website" \
+	--admin_user="${WP_ADMIN_USER}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="${WP_ADMIN_EMAIL}" --allow-root
 
 echo "Starting PHP-FPM"
 exec php-fpm7.4 -F
