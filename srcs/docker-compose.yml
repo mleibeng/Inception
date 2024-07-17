@@ -48,7 +48,7 @@ services:
       - .env
     networks:
       - app-network
-    
+
   # redis:
   #   container_name: redis
   #   build:
@@ -90,34 +90,34 @@ services:
   #     - app-network
 
 
-# volumes:
-#   wordpress:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/${USER}/data/wordpress
-#   db_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/${USER}/data/mysql
-
-
 volumes:
   wordpress:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/wordpress
+      device: /Users/${USER}/data/wordpress
   db_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/mysql
+      device: /Users/${USER}/data/mysql
+
+
+# volumes:
+#   wordpress:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/${USER}/data/wordpress
+#   db_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/${USER}/data/mysql
   # redis_data:
   #   driver: local
   #   driver_opts:
