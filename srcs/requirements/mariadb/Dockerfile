@@ -1,7 +1,7 @@
 FROM debian:11
 
 RUN apt-get update && \
-	apt-get install -y mariadb-server mysql-client && \
+	apt-get install -y mariadb-server && \
 	apt-get clean && rm -fr /var/lib/apt/lists/* && \
 	mkdir -p /run/mysqld && \
 	chown mysql:mysql /run/mysqld
