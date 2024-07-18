@@ -81,7 +81,7 @@ services:
   adminer:
     container_name: adminer
     build:
-      context: ./requirements/adminer
+      context: ./requirements/bonus/Adminer
       dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
