@@ -49,10 +49,10 @@ do
 	fi
 done
 
-# {
-#     echo "define('WP_REDIS_HOST', 'redis');"
-#     echo "define('WP_REDIS_PORT', 6379);"
-# } >> /var/www/html/wp-config.php
+{
+	echo "define('WP_REDIS_HOST', 'redis');"
+	echo "define('WP_REDIS_PORT', 6379);"
+} >> /var/www/html/wp-config.php
 
 echo "Installing WordPress"
 wp core install --path=/var/www/html --url="https://${DOMAIN_NAME}" --title="Just another website" \

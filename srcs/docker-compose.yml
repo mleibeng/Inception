@@ -30,7 +30,7 @@ services:
       - wordpress:/var/www/html
     depends_on:
       - mariadb
-      # - redis
+      - redis
     env_file:
       - .env
     networks:
@@ -49,18 +49,18 @@ services:
     networks:
       - app-network
 
-  # redis:
-  #   container_name: redis
-  #   build:
-  #     context: ./requirements/redis
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - redis_data:/data
-  #   networks:
-  #     - app-network
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/redis
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
 
   # ftp:
   #   container_name: ftp
@@ -120,12 +120,12 @@ volumes:
       type: none
       o: bind
       device: /home/${USER}/data/mysql
-  # redis_data:
-  #   driver: local
-  #   driver_opts:
-  #     type: none
-  #     o: bind
-  #     device: /home/${USER}/data/redis
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/redis
   # ftp_data:
   #   driver: local
   #   driver_opts:
