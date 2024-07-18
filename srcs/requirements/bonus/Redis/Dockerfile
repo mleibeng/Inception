@@ -4,7 +4,7 @@ RUN apt-get update && \
 	apt-get install -y redis && \
 	apt-get clean && rm -fr /var/lib/apt/lists/*
 
-COPY .tools/entrypoint.sh /entrypoint.sh
+COPY ./tools/entrypoint.sh /entrypoint.sh
 
 COPY /conf/redis.conf /usr/local/etc/redis/redis.conf
 
