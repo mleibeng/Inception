@@ -14,7 +14,7 @@ services:
       - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - wordpress
-      # - adminer
+      - adminer
     env_file:
       - .env
     networks:
@@ -78,16 +78,16 @@ services:
   #     - .env
   #   networks:
   #     - app-network
-  # adminer:
-  #   container_name: adminer
-  #   build:
-  #     context: ./requirements/adminer
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - mariadb
-  #   networks:
-  #     - app-network
+  adminer:
+    container_name: adminer
+    build:
+      context: ./requirements/adminer
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    networks:
+      - app-network
 
 
 # volumes:
