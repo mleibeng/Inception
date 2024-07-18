@@ -52,7 +52,7 @@ services:
   redis:
     container_name: redis
     build:
-      context: ./requirements/redis
+      context: ./requirements/bonus/Redis
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
