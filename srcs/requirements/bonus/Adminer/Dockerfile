@@ -1,8 +1,8 @@
 FROM debian:11
 
 RUN apt-get update && apt-get install -y \
-	php \
-	php-mysql \
+	php7.4 \
+	php7.4-mysql \
 	wget \
 	&& rm -rf /var/lib/apt/lists/*
 

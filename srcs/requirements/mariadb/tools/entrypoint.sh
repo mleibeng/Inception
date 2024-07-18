@@ -14,13 +14,13 @@ chown -R mysql:mysql /run/mysqld
 
 max_tries=30
 counter=0
-until mariadb-admin ping >/dev/null 2>&1 || [$counter -eq $maxtries ]; do
+until mariadb-admin ping >/dev/null 2>&1 || [ $counter -eq $maxtries ]; do
   echo "Waiting for MariaDB to be ready..."
   sleep 1
   counter=$((counter+1))
   echo "Attempt $counter/$max_tries"
 done
-if [$counter -eq $max_tries ]; then
+if [ $counter -eq $max_tries ]; then
   echo "Error: MariaDB cannot start up in time"
   exit 1
 fi
