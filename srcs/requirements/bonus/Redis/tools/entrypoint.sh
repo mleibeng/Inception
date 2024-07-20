@@ -2,6 +2,6 @@
 
 set -e
 
-echo "protected-mode no" >> /usr/local/etc/redis/redis.conf
+echo "protected-mode no" >> /etc/redis/redis.conf
 
-exec redis-server /usr/local/etc/redis/redis.conf
+exec redis-server /etc/redis/redis.conf

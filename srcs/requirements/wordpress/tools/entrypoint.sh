@@ -19,19 +19,17 @@ escape_sed() {
 	echo "$1" | sed -e 's/[\/&]/\\&/g'
 }
 
-if [ -f /var/www/html/wp-config.php ]; then
-	echo "wp-config.php already exists. Deleting it to recreate."
-	rm /var/www/html/wp-config.php
-fi
+# if [ -f /var/www/html/wp-config.php ]; then
+# 	echo "wp-config.php already exists. Deleting it to recreate."
+# 	rm /var/www/html/wp-config.php
+# fi
 
-echo "Creating wp-config.php from sample."
-
-if cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php; then
-	echo "Copied wp-config-sample.php to wp-config.php"
-else
-	echo "Failed to copy wp-config-sample.php"
-	exit 1
-fi
+# if cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php; then
+# 	echo "Copied wp-config-sample.php to wp-config.php"
+# else
+# 	echo "Failed to copy wp-config-sample.php"
+# 	exit 1
+# fi
 
 sed -i "s/database_name_here/$(escape_sed "$MYSQL_DATABASE")/g" /var/www/html/wp-config.php || { echo "Failed database sed"; exit 1; }
 sed -i "s/username_here/$(escape_sed "$MYSQL_USER")/g" /var/www/html/wp-config.php || { echo "Failed MYSQL_USER sed"; exit 1; }
