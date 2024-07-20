@@ -14,7 +14,7 @@ chown -R mysql:mysql /run/mysqld
 
 max_tries=30
 counter=0
-until mariadb-admin ping >/dev/null 2>&1 || [ $counter -eq $maxtries ]; do
+until mariadb-admin ping >/dev/null 2>&1 || [ $counter -eq $max_tries ]; do
   echo "Waiting for MariaDB to be ready..."
   sleep 1
   counter=$((counter+1))
