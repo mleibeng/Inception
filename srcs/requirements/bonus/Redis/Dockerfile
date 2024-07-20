@@ -6,14 +6,10 @@ RUN apt-get update && \
 
 COPY ./tools/entrypoint.sh /entrypoint.sh
 
-COPY /conf/redis.conf /usr/local/etc/redis/redis.conf
+COPY /conf/redis.conf /etc/redis/redis.conf
 
-COPY /tools/entrypoint.sh /usr/local/bin/entrypoint.sh
-
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 6379
 
-CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]
+ENTRYPOINT ["/entrypoint.sh"]
