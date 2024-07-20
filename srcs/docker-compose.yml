@@ -62,22 +62,22 @@ services:
     networks:
       - app-network
 
-  # ftp:
-  #   container_name: ftp
-  #   build:
-  #     context: ./requirements/ftp
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "20:20"
-  #     - "21:21"
-  #     - "21100-21110:21100-21110"
-  #   volumes:
-  #     - ftp_data:/home/${USER}/ftp
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - app-network
+  ftp:
+    container_name: ftp
+    build:
+      context: ./requirements/bonus/FTP
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "20:20"
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - wordpress:/home/${USER}/ftp/files
+    env_file:
+      - .env
+    networks:
+      - app-network
   adminer:
     container_name: adminer
     build:
@@ -126,13 +126,6 @@ volumes:
       type: none
       o: bind
       device: /home/${USER}/data/redis
-  # ftp_data:
-  #   driver: local
-  #   driver_opts:
-  #     type: none
-  #     o: bind
-  #     device: /home/${USER}/data/ftp
-
 
 networks:
   app-network:
