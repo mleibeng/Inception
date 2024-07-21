@@ -103,6 +103,18 @@ services:
       - db_data:/var/lib/mysql
       - ./backups:/backups
 
+  static_site:
+    container_name: static_site
+    build:
+      context: ./requirements/bonus/static_website
+      dockerfile: Dockerfile
+    ports:
+      - "8443:8443"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+
 volumes:
   wordpress:
     driver: local
