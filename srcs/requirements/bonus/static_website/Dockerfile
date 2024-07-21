@@ -6,9 +6,6 @@ COPY index.html /var/www/html/
 
 COPY /conf/nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY /tools/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 EXPOSE 8443
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
