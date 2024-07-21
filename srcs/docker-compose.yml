@@ -78,6 +78,7 @@ services:
       - .env
     networks:
       - app-network
+
   adminer:
     container_name: adminer
     build:
@@ -91,21 +92,16 @@ services:
     networks:
       - app-network
 
-
-# volumes:
-#   wordpress:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/${USER}/data/wordpress
-#   db_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/${USER}/data/mysql
-
+  duplicati:
+    container_name: duplicati
+    build:
+      context: ./requirements/bonus/duplicati
+      dockerfile: Dockerfile
+    volumes:
+      - duplicati_config:/config
+      - wordpress:var/www/html:ro
+      - db_data:/var/lib/mysql
+      - ./backups:/backups
 
 volumes:
   wordpress:
@@ -126,6 +122,12 @@ volumes:
       type: none
       o: bind
       device: /home/${USER}/data/redis
+  duplicati_config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/duplicati
 
 networks:
   app-network:
