@@ -3,21 +3,21 @@ set -e
 echo "Starting entrypoint script..."
 
 if [ ! -f /etc/vsftpd.conf ]; then
-    echo "Error: vsftpd.conf not found!"
-    exit 1
+	echo "Error: vsftpd.conf not found!"
+	exit 1
 fi
 
 if [ -z "$FTPPW" ] || [ -z "$USER" ]; then
-    echo "Error: FTPPW or USER variable is not set in the .env file"
-    exit 1
+	echo "Error: FTPPW or USER variable is not set in the .env file"
+	exit 1
 fi
 
 echo "Checking if user $USER exists..."
 if getent passwd "$USER" > /dev/null 2>&1; then
-    echo "User $USER exists in passwd. Updating password..."
+	echo "User $USER exists in passwd. Updating password..."
 else
-    echo "User $USER does not exist in passwd. Creating user..."
-    adduser --disabled-password --gecos "" "$USER"
+	echo "User $USER does not exist in passwd. Creating user..."
+	adduser --disabled-password --gecos "" "$USER"
 fi
 
 echo "Setting password for $USER..."
