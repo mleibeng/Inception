@@ -14,7 +14,8 @@ services:
       - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - wordpress
-      # - adminer
+      - adminer
+      - static
     env_file:
       - .env
     networks:
@@ -30,7 +31,7 @@ services:
       - wordpress:/var/www/html
     depends_on:
       - mariadb
-      # - redis
+      - redis
     env_file:
       - .env
     networks:
@@ -49,45 +50,72 @@ services:
     networks:
       - app-network
 
-  # redis:
-  #   container_name: redis
-  #   build:
-  #     context: ./requirements/redis
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - redis_data:/data
-  #   networks:
-  #     - app-network
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/bonus/Redis
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
 
-  # ftp:
-  #   container_name: ftp
-  #   build:
-  #     context: ./requirements/ftp
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "20:20"
-  #     - "21:21"
-  #     - "21100-21110:21100-21110"
-  #   volumes:
-  #     - ftp_data:/home/${USER}/ftp
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - app-network
-  # adminer:
-  #   container_name: adminer
-  #   build:
-  #     context: ./requirements/adminer
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - mariadb
-  #   networks:
-  #     - app-network
+  ftp:
+    container_name: ftp
+    build:
+      context: ./requirements/bonus/FTP
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "20:20"
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  adminer:
+    container_name: adminer
+    build:
+      context: ./requirements/bonus/Adminer
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    networks:
+      - app-network
+
+  duplicati:
+    container_name: duplicati
+    build:
+      context: ./requirements/bonus/duplicati
+      dockerfile: Dockerfile
+    volumes:
+      - duplicati_config:/config
+      - wordpress:/var/www/html:ro
+      - db_data:/var/lib/mysql
+      - ./backups:/backups
+    networks:
+      - app-network
+
+  static:
+    container_name: static
+    build:
+      context: ./requirements/bonus/static
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+    networks:
+      - app-network
 
 
 volumes:
@@ -96,41 +124,25 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/${USER}/data/wordpress
+      device: /home/${USER}/data/wordpress
   db_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /Users/${USER}/data/mysql
-
-
-# volumes:
-#   wordpress:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /home/${USER}/data/wordpress
-#   db_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /home/${USER}/data/mysql
-  # redis_data:
-  #   driver: local
-  #   driver_opts:
-  #     type: none
-  #     o: bind
-  #     device: /home/${USER}/data/redis
-  # ftp_data:
-  #   driver: local
-  #   driver_opts:
-  #     type: none
-  #     o: bind
-  #     device: /home/${USER}/data/ftp
-
+      device: /home/${USER}/data/mysql
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/redis
+  duplicati_config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/duplicati
 
 networks:
   app-network:
