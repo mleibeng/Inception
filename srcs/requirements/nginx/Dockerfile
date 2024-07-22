@@ -12,5 +12,3 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 443
 
 ENTRYPOINT [ "/entrypoint.sh"]
-
-CMD ["nginx", "-g", "daemon off;"]
