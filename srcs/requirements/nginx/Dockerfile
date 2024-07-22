@@ -12,4 +12,3 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 443
 
 ENTRYPOINT [ "/entrypoint.sh"]
-
