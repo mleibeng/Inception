@@ -42,8 +42,8 @@ find /var/www/html -type d -exec chmod 775 {} \;
 find /var/www/html -type f -exec chmod 644 {} \;
 
 if ! $(wp core is-installed --allow-root); then
-    wp core install --path=/var/www/html --url="https://${DOMAIN_NAME}" --title="Just another website" \
-        --admin_user="${WP_ADMIN_USER}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="${WP_ADMIN_EMAIL}" --allow-root
+	wp core install --path=/var/www/html --url="https://${DOMAIN_NAME}" --title="Just another website" \
+		--admin_user="${WP_ADMIN_USER}" --admin_password="${WP_ADMIN_PASSWORD}" --admin_email="${WP_ADMIN_EMAIL}" --allow-root
 fi
 
 echo "Starting PHP-FPM"
