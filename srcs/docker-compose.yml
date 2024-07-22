@@ -15,6 +15,7 @@ services:
     depends_on:
       - wordpress
       - adminer
+      - static
     env_file:
       - .env
     networks:
@@ -105,13 +106,13 @@ services:
     networks:
       - app-network
 
-  static_site:
-    container_name: static_site
+  static:
+    container_name: static
     build:
-      context: ./requirements/bonus/static_website
+      context: ./requirements/bonus/static
       dockerfile: Dockerfile
     ports:
-      - "8443:8443"
+      - "8081:8081"
     restart: unless-stopped
     networks:
       - app-network
