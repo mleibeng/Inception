@@ -102,6 +102,8 @@ services:
       - wordpress:/var/www/html:ro
       - db_data:/var/lib/mysql
       - ./backups:/backups
+    networks:
+      - app-network
 
   static_site:
     container_name: static_site
