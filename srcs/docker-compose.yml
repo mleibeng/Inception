@@ -99,7 +99,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - duplicati_config:/config
-      - wordpress:var/www/html:ro
+      - wordpress:/var/www/html:ro
       - db_data:/var/lib/mysql
       - ./backups:/backups
 
