@@ -9,6 +9,9 @@ COPY /tools/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
+ARG USER=mleibeng
+RUN adduser --disabled-password --gecos "" $USER
+
 EXPOSE 20 21 21100-21110
 
 CMD ["/entrypoint.sh"]
