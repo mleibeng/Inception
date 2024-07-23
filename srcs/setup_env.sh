@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ENV_FILE="./srcs/.env"
-CREDENTIALS_FILE="./secrets/credentials.txt"
+ENV_FILE=".env"
+CREDENTIALS_FILE="../secrets/credentials.txt"
 
 touch "$ENV_FILE"
 
@@ -20,8 +20,8 @@ echo "MYSQL_USER=wordpress_user" >> "$ENV_FILE"
 echo "MYSQL_DATABASE=wordpress" >> "$ENV_FILE"
 echo "USER=mleibeng" >> "$ENV_FILE"
 
-add_secret_to_env "MYSQL_PASSWORD" "./secrets/db_password.txt"
-add_secret_to_env "MYSQL_ROOT_PASSWORD" "./secrets/db_root_password.txt"
+add_secret_to_env "MYSQL_PASSWORD" "../secrets/db_password.txt"
+add_secret_to_env "MYSQL_ROOT_PASSWORD" "../secrets/db_root_password.txt"
 
 if [ -f "$CREDENTIALS_FILE" ]; then
 	while IFS='=' read -r key value; do
