@@ -10,8 +10,8 @@ until nc -z mariadb 3306 || [ $counter -eq $max_tries ]; do
 	echo "Attempt $counter/$max_tries"
 done
 if [ $counter -eq $max_tries ]; then
-  echo "Error: MariaDB did not become available in time"
-  exit 1
+	echo "Error: MariaDB did not become available in time"
+	exit 1
 fi
 echo "MariaDB is available."
 
