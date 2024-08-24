@@ -7,6 +7,21 @@ Built using docker-compose using a yaml file is mandatory
 
 ---
 
+### DOCKER <img src="https://github.com/devicons/devicon/blob/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/docker/docker-plain-wordmark.svg" width="60" height="60" title="Docker" alt="Docker"/>
+
+ - The core of the project consists of creating a custom docker network, each service running in their own container connected through a bridge:
+   
+ - This is achieved by creation of a yaml file that manages our containers and sets up the appropriate network 
+ - Local volumes store the necessary information needed to keep the services stable and retaining information provided to the wordpress and mariadb.
+
+### RULES
+
+The Containers must be build using a stable penultimate debian/alpine image, manually setting up each service without including other services in the same container.
+ - The Server needs to run a TLSv1.2 or TLSv1.3 protocol, only serving HTTPS 
+ - Both mariadb and wordpress must be correctly configured to be only accessed over certain ports as well.
+
+---
+
 ### Nginx <img src="https://github.com/devicons/devicon/blob/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/nginx/nginx-original.svg" width="60" height="60" title="Nginx" alt="Nginx"/>
 
 Nginx is a high-performance web-server and reverse-proxy that has many built in features for modern web development.
@@ -18,7 +33,8 @@ Features:
  - HTTP/WEB2 support
  - Modular configuration options.
 
-Utilizing these functionalities can make a page load faster, be managed and connected easier and improves security just to name a few benefits.
+Utilizing these functionalities can make a page 
+load faster, be managed and connected easier and improves security just to name a few benefits.
 
 ### MariaDB <img src="https://github.com/devicons/devicon/blob/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/mariadb/mariadb-original-wordmark.svg" width="60" height="60" title="MariaDB" alt="MariaDB"/>
 
@@ -57,20 +73,6 @@ Providing features like:
  - easy file transfers (FTP)
  - and a custom static html page (nginx based index html).
 
----
-
-
-### DOCKER <img src="https://github.com/devicons/devicon/blob/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/docker/docker-plain-wordmark.svg" width="60" height="60" title="Docker" alt="Docker"/>
-
- - The core of the project consists of creating a custom docker network, each program running on their own container connected through a bridge:
-   
- - This is achieved by creation of a yaml file that manages our containers and sets up the appropriate network 
- - local volumes store the necessary information needed to keep the services stable and retaining information provided to the wordpress and mariadb.
-
-### RULES
-
-The Containers must be build using a stable penultimate debian/alpine image, manually setting up each service without including other services in the same container.
- - The Server needs to run a TLSv1.2 or TLSv1.3 protocol, only serving HTTPS 
- - Both mariadb and wordpress must be correctly configured to be only accessed over certain ports as well.
-
+### STRUCTURE
+![image](https://github.com/user-attachments/assets/30aa5012-177b-47dc-9585-7a8a2be156dc)
 
