@@ -22,6 +22,11 @@ The Containers must be build using a stable penultimate debian/alpine image, man
 
 ---
 
+### STRUCTURE
+<img width="562" alt="Inception_struct" src="https://github.com/user-attachments/assets/84c2ff7f-3e8c-43b3-9a4e-385b4ad532e4">
+
+---
+
 ### Nginx <img src="https://github.com/devicons/devicon/blob/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/nginx/nginx-original.svg" width="60" height="60" title="Nginx" alt="Nginx"/>
 
 Nginx is a high-performance web-server and reverse-proxy that has many built in features for modern web development.
@@ -73,6 +78,4 @@ Providing features like:
  - easy file transfers (FTP)
  - and a custom static html page (nginx based index html).
 
-### STRUCTURE
-<img width="562" alt="Inception_struct" src="https://github.com/user-attachments/assets/84c2ff7f-3e8c-43b3-9a4e-385b4ad532e4">
 
