@@ -74,5 +74,5 @@ Providing features like:
  - and a custom static html page (nginx based index html).
 
 ### STRUCTURE
-![image](https://github.com/user-attachments/assets/30aa5012-177b-47dc-9585-7a8a2be156dc)
+<img width="562" alt="Inception_struct" src="https://github.com/user-attachments/assets/84c2ff7f-3e8c-43b3-9a4e-385b4ad532e4">
 
