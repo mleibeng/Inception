@@ -7,7 +7,7 @@ Built using docker-compose using a yaml file is mandatory
 
 ---
 
-### Nginx <img src="<img>https://github.com/devicons/devicon/blob/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/nginx/nginx-original.svg</img>" width="60" height="60" title="Nginx" alt="Nginx"/>
+### Nginx <img src="https://github.com/devicons/devicon/blob/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/nginx/nginx-original.svg" width="60" height="60" title="Nginx" alt="Nginx"/>
 
 Nginx is a high-performance web-server and reverse-proxy that has many built in features for modern web development.
 
@@ -66,8 +66,6 @@ Providing features like:
    
  - This is achieved by creation of a yaml file that manages our containers and sets up the appropriate network 
  - local volumes store the necessary information needed to keep the services stable and retaining information provided to the wordpress and mariadb.
-
-<img src="https://files.slack.com/files-pri/T039P7U66-F07BGJQ3U0Z/image.png" width="60" height="60" title="Structure" alt="Structure"/>
 
 ### RULES
 
